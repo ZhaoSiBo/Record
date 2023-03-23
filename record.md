@@ -13,8 +13,8 @@
 ~~~
 
 su
-settings put global adb_enabled 1
 echo gadget > /sys/devices/platform/5b0d0000.usb/ci_hdrc.0/role
+settings put global adb_enabled 1
 
 
 ~~~
