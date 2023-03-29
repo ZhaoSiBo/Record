@@ -135,6 +135,11 @@ sudo ./uuu uuu.ivi-c0.txt
 
 http://10.20.21.4:9006/index.php/NXP_i.MX8_Projects#.E7.83.A7.E5.86.99
 
+远离1 是上，靠近1是下
+
+1 下，2上，正常模式
+
+1 上，2下，烧录模式
 
 安装 Fx11System11 的方法
 
@@ -313,3 +318,7 @@ grep -nr "01:53"
 scrcpy --video-encoder=OMX.google.h264.encoder
 
 
+
+## 关闭kernel log的命令
+su
+echo 0 > /proc/sys/kernel/printk
