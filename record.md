@@ -322,3 +322,41 @@ scrcpy --video-encoder=OMX.google.h264.encoder
 ## 关闭kernel log的命令
 su
 echo 0 > /proc/sys/kernel/printk
+
+
+## 串口下，如何知道自己是不是root
+执行命令 
+uid = 0 是root
+id
+
+## 查看当前 挂载状态 
+
+mount
+
+
+## 设置Home 目录 直接 cd 回到根目录
+export HOME=/
+
+
+## 用程序的进程ID、用户ID、权限角色等信息
+
+ps -ef | grep com.lorizhao.adbtool
+
+只查看id
+
+pidof com.lorizhao.adbtool
+
+我使用Runtime.getRuntime().exec("ls -l")
+process.waitFor()
+并且捕获了异常，获得提示ls: .: Permission denied
+
+
+## Jenkins 查看关键日志
+
+FAILURE 
+
+BUILD FAILED
+
+Build failed
+
+error
