@@ -360,3 +360,28 @@ BUILD FAILED
 Build failed
 
 error
+
+
+## fastboot 烧录
+
+
+su
+echo 0 > /proc/sys/kernel/printk   //关闭kernel log
+reboot bootloader   进入烧写模式
+fastboot devices
+查看设备
+
+sh flash_atc
+
+## 解决 8015的adb问题
+
+su
+echo device > /sys/class/dual_role_usb/dual-role-usb20/data_role
+echo host > /sys/class/dual_role_usb/dual-role-usb20/data_role
+
+settings put global adb_enabled 1
+
+
+sudo usermod -aG plugdev $LOGNAME
+sudo apt-get install android-sdk-platform-tools-common
+
