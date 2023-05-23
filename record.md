@@ -79,27 +79,6 @@ maven {
         classpath "com.google.protobuf:protobuf-gradle-plugin:0.9.1"
 
 
-## 进入车机的模型界面
-
-power_key的线，对接一下电源
-
-## 如何连接电源线
-
-从右往左，两根红，两根黑
-
-第一根红线，接IGN 黑线
-
-第二根红线，接 BATT 黄线，ACC红线（绑一起）
-
-第三根黑线，接GND黑线
-
-BTAA 电源线， GND 地线  （通电了）
-
-ACC 按下启动信号
-
-IGN 启动发车
-
-
 ## mgftools-uuu烧写
 
 下载 
@@ -318,7 +297,6 @@ grep -nr "01:53"
 scrcpy --video-encoder=OMX.google.h264.encoder
 
 
-
 ## 关闭kernel log的命令
 su
 echo 0 > /proc/sys/kernel/printk
@@ -364,7 +342,6 @@ error
 
 ## fastboot 烧录
 
-
 su
 echo 0 > /proc/sys/kernel/printk   //关闭kernel log
 reboot bootloader   进入烧写模式
@@ -373,15 +350,111 @@ fastboot devices
 
 sh flash_atc
 
-## 解决 8015的adb问题
-
-su
-echo device > /sys/class/dual_role_usb/dual-role-usb20/data_role
-echo host > /sys/class/dual_role_usb/dual-role-usb20/data_role
-
-settings put global adb_enabled 1
-
+## 解决 8015的adb no permissions问题 (user in plugdev group; are your udev rules wrong?)
 
 sudo usermod -aG plugdev $LOGNAME
 sudo apt-get install android-sdk-platform-tools-common
 
+lsusb
+得到
+Bus 001 Device 035: ID 2be1:0000 ATC AC8015
+得到
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", ATTR{idProduct}=="4eed", MODE="0666", GROUP="plugdev"
+执行
+$ sudo gedit /etc/udev/rules.d/51-android.rules
+
+把上面SUBSYSTEM开头这个句话，写入到这个文件
+$ sudo gedit /etc/udev/rules.d/51-android.rules
+
+sudo udevadm control --reload-rules
+
+## 关闭 kernel log
+su
+echo 0 > /proc/sys/kernel/printk
+
+## fast boot烧录
+
+su
+echo 0 > /proc/sys/kernel/printk   //关闭kernel log
+
+reboot bootloader   进入烧写模式
+
+查看设备
+fastboot devices
+
+sh flash_atc
+
+
+## 查看mcu 日期的命令
+
+rpc-test getInfoSync 24 1 0
+
+## 8015 adb
+su
+echo 0 > /proc/sys/kernel/printk
+
+logcat | grep -iE " AudioManager|audio_con|libdspcon| Audioservice: "
+
+su
+setprop sys.usb.config nocarplay
+sleep 2
+setprop sys.usb.config adb
+sleep 2
+echo device > /sys/class/dual_role_usb/dual-role-usb20/data_role
+settings put global adb_enabled 1
+
+su
+getprop sys.usb.config
+cat /sys/class/dual_role_usb/dual-role-usb20/data_role
+settings get global adb_enabled
+
+## 解决adb权限问题命令
+
+dmesg -w |grep monitors                                            
+
+logcat |grep -e CS_ -e monitors&  
+
+logcat |grep avc &
+
+## PCan 信号
+
+### 设防信号
+    BCM_4 ArmingSts 
+### RVC 倒车信号
+    BCM_TCU_G BCM_TCM_2_G = 13 / 0
+### 空调展示
+    EIPM_2 DisplayActive = 0
+### 车速
+    ESP_G ASB_ESP_4_G_VehicleSpeed = 0
+
+
+
+### 22.04 gerrit 问题
+
+1. code  /etc/ssh/sshd_config 
+2. 结尾增加 
+HostKeyAlgorithms ssh-rsa
+3. 删除.ssh 文件夹
+
+4. 重新身成公钥
+生成ed25519密钥
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+5. ssh-add
+
+6. 将~/.ssh/id_ed25519.pub的文本添加到gerrit或git用户配置的SSH keys中
+
+
+### 22.04 需要额外安装编译工具
+
+./allmake.sh -p gs11_cbu allota
+
+libtinfo5
+python3
+apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qtcreator
+
+### ffmpeg使用
+
+ffmpeg --version  查看ffmpeg环境
+
+ffplay 文件路径  查看文件具体的编码格式
