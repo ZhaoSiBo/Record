@@ -290,7 +290,7 @@ settings get global autoai_power_mode 1
 
 
 ## 查询文件夹下面的所有包含的内容
-grep -nr "01:53"
+grep -nr "**videoApp-BrightnessHelper**"
 
 ## 解决GS11 Scrcpy直接调用没有投屏幕
 
@@ -393,8 +393,6 @@ rpc-test getInfoSync 24 1 0
 su
 echo 0 > /proc/sys/kernel/printk
 
-logcat | grep -iE " AudioManager|audio_con|libdspcon| Audioservice: "
-
 su
 setprop sys.usb.config nocarplay
 sleep 2
@@ -458,3 +456,161 @@ apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qtcreator
 ffmpeg --version  查看ffmpeg环境
 
 ffplay 文件路径  查看文件具体的编码格式
+
+### 音频焦点关键日志  
+
+MediaFocusControl
+
+
+### 亮度调节
+
+cGrpId_RpcIviCan1_0x392_BCM_4
+Parklightsts
+Lightdetected
+
+### 亮度模式
+
+背光：白天模式 ParkLightSts：0  LightDetected：1
+背光：白天模式 ParkLightSts：1  LightDetected：1
+背光：白天模式 ParkLightSts：0  LightDetected：0
+背光：夜晚模式 ParkLightSts：1  LightDetected：0
+
+
+##Music###-Audio
+
+
+老车机挂电话
+
+01-01 01:33:17.214   772  4104 I MediaFocusControl: abandonAudioFocus() from uid/pid 10057/7380 clientId=android.media.AudioManager@477e2d1com.bonauto.bt.service.app.phone.BtPhoneCommand$2@ccd7136
+01-01 01:33:17.215   772  4104 I MediaFocusControl: AudioFocus  removeFocusStackEntryEx(): removing entry for android.media.AudioManager@477e2d1com.bonauto.bt.service.app.phone.BtPhoneCommand$2@ccd7136
+01-01 01:33:17.215   772  4104 D MediaFocusControl: It is not mix stream type return
+01-01 01:33:17.215   772  2855 D MediaFocusControl: switchSoundEffectIfNeed oldStreamType:0, newStreamType:-1, isPhoneAndRaderOn:false
+01-01 01:33:17.215   772  4104 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:1005 com.android.server.audio.MediaFocusControl.broadcastCurre
+ntAudioFocus:1644 com.android.server.audio.MediaFocusControl.setConnectRoute:1556 com.android.server.audio.MediaFocusControl.removeFocusStackEntryEx:389 com.android.server.audio.MediaFocusControl.abandonAudioFoc
+us:1264 
+01-01 01:33:17.305   772  4104 D MediaFocusControl: abandon audioFocus mFocusStack: stack_size=1
+01-01 01:33:17.306   772  4104 D MediaFocusControl: mFocusStack[0] mStreamType=12, clientId=android.media.AudioManager@42f556com.autoai.gs11.music.audio.-$$Lambda$Audio$rwE5X-L9LEMoRlnJEEjWOYZ3DCM@9c6d9d7, mFocu
+sGainRequest=1, misFocusOwner=true, UID1000
+01-01 01:33:17.309   772  4104 D MediaFocusControl: abandonAudioMicFocus mFocusMicStack: stack_size=0
+01-01 01:33:17.342   772  2855 D MediaFocusControl: onSetSettingsGlobal name:audio_arkamys_mode value:4
+01-01 01:33:17.343   772  2855 D MediaFocusControl: setArkamysMode str:set_arkamys_mode,mode:4,for_tbox:0
+01-01 01:33:17.347   772  1007 I MediaFocusControl: requestAudioFocus() from uid/pid 1000/3797 clientId=android.media.AudioManager@cfdb2e0com.autoai.carpowerservice.CarPowerService$7@dc59999 callingPack=com.auto
+ai.carpowerservice req=2 flags=0x0 sdk=19
+01-01 01:33:17.348   772  1007 D MediaFocusControl: request has higher priority  loss current focus:12
+01-01 01:33:17.348   772  1007 D MediaFocusControl: handleExternalFocusGain fr stream:8
+01-01 01:33:17.348   772  1007 D MediaFocusControl: hasMessage remove MSG_NOTIFY_FOCUS_GAIN clientId:android.media.AudioManager@42f556com.autoai.gs11.music.audio.-$$Lambda$Audio$rwE5X-L9LEMoRlnJEEjWOYZ3DCM@9c6d9
+d7
+01-01 01:33:17.349   772  1007 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:1005 com.android.server.audio.MediaFocusControl.broadcastCurre
+ntAudioFocus:1644 com.android.server.audio.MediaFocusControl.setConnectRoute:1556 com.android.server.audio.MediaFocusControl.requestAudioFocus:1218 com.android.server.audio.AudioService.requestAudioFocus:7130 
+01-01 01:33:18.008   772  2855 D MediaFocusControl: switchSoundEffectIfNeed oldStreamType:12, newStreamType:8, isPhoneAndRaderOn:false
+01-01 01:33:18.047   772  1007 D MediaFocusControl: requestAudioFocus success mFocusStack: stack_size=2
+01-01 01:33:18.047   772  1007 D MediaFocusControl: mFocusStack[0] mStreamType=8, clientId=android.media.AudioManager@cfdb2e0com.autoai.carpowerservice.CarPowerService$7@dc59999, mFocusGainRequest=2, misFocusOwn
+er=true, UID1000
+01-01 01:33:18.047   772  1007 D MediaFocusControl: mFocusStack[1] mStreamType=12, clientId=android.media.AudioManager@42f556com.autoai.gs11.music.audio.-$$Lambda$Audio$rwE5X-L9LEMoRlnJEEjWOYZ3DCM@9c6d9d7, mFocu
+sGainRequest=1, misFocusOwner=false, UID1000
+
+
+老车机Music
+
+
+01-01 01:01:44.082  6954  7073 D ##Music###-Audio->: MSG_RESUME
+01-01 01:01:44.082  6954  7073 D ##Music###-Audio->: curUsbSource:1
+01-01 01:01:44.090  6954  6954 D ##Music###-Audio->: OnAudioFocusChange
+01-01 01:01:44.090  6954  6954 D ##Music###-Audio->: AUDIOFOCUS_LOSS_TRANSIENT
+01-01 01:01:44.673  6954  7073 D ##Music###-Audio->: focusPackageName:com.autoai.carpowerservice
+01-01 01:01:44.673  6954  7073 D ##Music###-Audio->: focusType:8
+01-01 01:01:44.673  6954  7073 D ##Music###-Audio->: gainFocus
+01-01 01:01:44.673  6954  7073 D ##Music###-Audio->: focusGain1:false
+01-01 01:01:44.677  6954  7073 D ##Music###-Audio->: focusPackageName:com.autoai.carpowerservice
+01-01 01:01:44.677  6954  7073 D ##Music###-Audio->: focusType:8
+01-01 01:01:44.685  6954  6954 D ##Music###-Audio->: autopowerObserver onChange() called with: selfChange = [false], uri = [content://settings/global/autoai_power_mode]
+01-01 01:01:44.687  6954  7073 D ##Music###-Audio->: focusGain:false
+01-01 01:01:44.687  6954  7073 D ##Music###-Audio->: focus:false
+01-01 01:01:44.687  6954  7073 D ##Music###-Audio->: MSG_LOSS_FOCUS
+01-01 01:01:44.687  6954  7073 D ##Music###-AudioFast->: resetFast
+01-01 01:01:44.687  6954  7073 D ##Music###-AudioPlayer->: currentState =6
+01-01 01:01:44.688  6954  7073 D ##Music###-AudioPlayer->: lossFocus
+01-01 01:01:44.688  6954  7073 D ##Music###-AudioPlayer->: currentState:6
+01-01 01:01:44.688  6954  7073 D ##Music###-AudioPlayer->: targetState:5
+01-01 01:01:44.690  6954  6954 D ##Music###-Audio->: powerObserver onChange() called with: power = [3]
+01-01 01:01:44.890  6954  6954 D ##Music###-Audio->: handleMessage powerState = [3]
+
+
+
+
+新车机挂电话瞬间
+
+01-01 01:12:49.998  2099  6051 I MediaFocusControl: abandonAudioFocus() from uid/pid 10044/10825 clientId=android.media.AudioManager@5fb145ccom.bonauto.bt.service.app.phone.BtPhoneCommand$2@743e365
+01-01 01:12:49.998  2099  6051 D MediaFocusControl: abandon before: mFocusStack: stack_size=2
+01-01 01:12:49.998  2099  6051 D MediaFocusControl: mFocusStack[0] mStreamType=0, usage=2, clientId=android.media.AudioManager@5fb145ccom.bonauto.bt.service.app.phone.BtPhoneCommand$2@743e365, mFocusGainRequest=
+2, UID10044, isActive=true
+01-01 01:12:49.998  2099  6051 D MediaFocusControl: mFocusStack[1] mStreamType=3, usage=1, clientId=android.media.AudioManager@31eaa26com.autoai.gs11.music.audio.-$$Lambda$Audio$rwE5X-L9LEMoRlnJEEjWOYZ3DCM@b4a36
+67, mFocusGainRequest=1, UID1000, isActive=false
+01-01 01:12:49.998  2099  6051 D MediaFocusControl: removeFocusStackEntry --> mFocusStack top is 2
+01-01 01:12:50.006  2099  6051 D MediaFocusControl: cuFr[0]:3
+01-01 01:12:50.008  2099  6051 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:1012 com.android.server.audio.MediaFocusControl.broadcastCurre
+ntAudioFocus:2014 com.android.server.audio.MediaFocusControl.abandonAudioFocus:1258 com.android.server.audio.AudioService.abandonAudioFocus:7912 android.media.IAudioService$Stub.onTransact:654 
+01-01 01:12:50.009  2099  6051 D MediaFocusControl: abandon after: mFocusStack: stack_size=1
+01-01 01:12:50.009  2099  6051 D MediaFocusControl: mFocusStack[0] mStreamType=3, usage=1, clientId=android.media.AudioManager@31eaa26com.autoai.gs11.music.audio.-$$Lambda$Audio$rwE5X-L9LEMoRlnJEEjWOYZ3DCM@b4a36
+67, mFocusGainRequest=1, UID1000, isActive=true
+01-01 01:12:50.011  2099  5797 V MediaFocusControl: getActiveAudioFocusType:  fse get
+01-01 01:12:50.013  2099  6051 D MediaFocusControl: abandonAudioMicFocus mFocusMicStack: stack_size=0
+01-01 01:12:50.113  2099  6051 I MediaFocusControl: requestAudioFocus() from uid/pid 1000/6306 clientId=android.media.AudioManager@6b7d273com.autoai.carpowerservice.CarPowerService$7@655d530 callingPack=com.auto
+ai.carpowerservice req=2 flags=0x0 sdk=19
+
+
+
+
+新车机 Music
+
+
+01-01 01:12:50.007 10628 10628 D ##Music###-Audio->: OnAudioFocusChange
+01-01 01:12:50.007 10628 10628 D ##Music###-Audio->: AUDIOFOCUS_GAIN
+01-01 01:12:50.012 10628 10703 D ##Music###-Audio->: MSG_GAIN_FOCUS
+01-01 01:12:50.012 10628 10703 D ##Music###-AudioPlayer->: gainFocusAutoNext
+01-01 01:12:50.012 10628 10703 D ##Music###-AudioPlayer->: targetState:5
+01-01 01:12:50.012 10628 10703 D ##Music###-Audio->: gainFocus needPlay=> falsefocusFalseUsbSource==> -1curUsbSource==> 1
+01-01 01:12:50.018 10628 10703 D ##Music###-Audio->: MSG_GAIN_FOCUS playBean==>AudioBean{medium='562286074', path='/storage/udisk2/媒体/一路上有你-张学友.128.mp3', title='一路上有你-张学友.128', titleId3=' ', du
+rtist=' ', artistId=1, album=' ', albumId=1, fileFolder='/storage/udisk1/媒体', playType=1, usbSource=1}
+01-01 01:12:50.019 10628 10703 D ##Music###-AudioPlayer->: targetState:5
+01-01 01:12:50.019 10628 10703 D ##Music###-AudioPlayer->: currentState:6
+01-01 01:12:50.019 10628 10703 D ##Music###-AudioPlayer->: start
+01-01 01:12:50.019 10628 10703 D ##Music###-AudioPlayer->: ready
+01-01 01:12:50.019 10628 10703 D ##Music###-AudioPlayer->: flagPlayer:true
+01-01 01:12:50.019 10628 10703 D ##Music###-AudioPlayer->: flagState:true
+01-01 01:12:50.019 10628 10703 D ##Music###-AudioPlayer->: currentState:6
+01-01 01:12:50.027 10628 10703 D ##Music###-Audio->: ######onStart#####
+01-01 01:12:50.054 10628 10628 D ##Music###-AudioPlayer->: currentState =5
+01-01 01:12:50.060 10628 10703 D ##Music###-Audio->: #####savePPM######
+01-01 01:12:50.060 10628 10703 D ##Music###-AudioPlayer->: currentState =5
+01-01 01:12:50.060 10628 10703 D ##Music###-AudioPlayer->: ready
+01-01 01:12:50.060 10628 10703 D ##Music###-AudioPlayer->: flagPlayer:true
+01-01 01:12:50.060 10628 10703 D ##Music###-AudioPlayer->: flagState:true
+01-01 01:12:50.060 10628 10703 D ##Music###-AudioPlayer->: currentState:5
+01-01 01:12:50.065 10628 10703 D ##Music###-AudioBean->: toPPM
+01-01 01:12:50.071 10628 10703 D ##Music###-AudioBean->: PpmBean{medium='562286074', path='/storage/udisk2/媒体/一路上有你-张学友.128.mp3', playType=1, lastTime=1577812370065, folder='/storage/udisk1/媒体', curP
+24}
+01-01 01:12:50.071 10628 10703 D ##Music###-AudioPpm->: putPpmBean
+01-01 01:12:50.071 10628 10703 D ##Music###-AudioPpm->: PpmBean{medium='562286074', path='/storage/udisk2/媒体/一路上有你-张学友.128.mp3', playType=1, lastTime=1577812370065, folder='/storage/udisk1/媒体', curPo
+4}
+01-01 01:12:50.076 10628 10703 D ##Music###-Audio->: sendMeter
+01-01 01:12:50.245 10628 10703 D ##Music###-Audio->: MSG_RESUME
+01-01 01:12:50.245 10628 10703 D ##Music###-Audio->: curUsbSource:1
+01-01 01:12:50.246 10628 10703 D ##Music###-Audio->: focusPackageName:com.autoai.carpowerservice
+01-01 01:12:50.246 10628 10703 D ##Music###-Audio->: focusType:0
+01-01 01:12:50.246 10628 10703 D ##Music###-Audio->: gainFocus
+01-01 01:12:50.246 10628 10703 D ##Music###-Audio->: focusGain1:true
+01-01 01:12:50.252 10628 10628 D ##Music###-Audio->: OnAudioFocusChange
+01-01 01:12:50.252 10628 10628 D ##Music###-Audio->: AUDIOFOCUS_LOSS_TRANSIENT
+01-01 01:12:50.257 10628 10703 D ##Music###-Audio->: focusPackageName:com.autoai.carpowerservice
+01-01 01:12:50.257 10628 10703 D ##Music###-Audio->: focusType:0
+01-01 01:12:50.259 10628 10628 D ##Music###-Audio->: autopowerObserver onChange() called with: selfChange = [false], uri = [content://settings/global/autoai_power_mode]
+01-01 01:12:50.261 10628 10703 D ##Music###-Audio->: focusGain:false
+01-01 01:12:50.261 10628 10628 D ##Music###-Audio->: powerObserver onChange() called with: power = [3]
+01-01 01:12:50.261 10628 10703 D ##Music###-Audio->: focus:false
+01-01 01:12:50.261 10628 10703 D ##Music###-Audio->: MSG_LOSS_FOCUS
+01-01 01:12:50.261 10628 10703 D ##Music###-AudioFast->: resetFast
+01-01 01:12:50.263 10628 10703 D ##Music###-AudioPlayer->: currentState =5
+01-01 01:12:50.264 10628 10703 D ##Music###-AudioPlayer->: lossFocus
+01-01 01:12:50.264 10628 10703 D ##Music###-AudioPlayer->: currentState:5
+01-01 01:12:50.264 10628 10703 D ##Music###-AudioPlayer->: pause
