@@ -359,12 +359,12 @@ lsusb
 得到
 Bus 001 Device 035: ID 2be1:0000 ATC AC8015
 得到
-SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", ATTR{idProduct}=="4eed", MODE="0666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0000", ATTR{idProduct}=="0000", MODE="0666", GROUP="plugdev"
 执行
 $ sudo gedit /etc/udev/rules.d/51-android.rules
 
 把上面SUBSYSTEM开头这个句话，写入到这个文件
-$ sudo gedit /etc/udev/rules.d/51-android.rules
+
 
 sudo udevadm control --reload-rules
 
@@ -424,6 +424,9 @@ logcat |grep avc &
     EIPM_2 DisplayActive = 0
 ### 车速
     ESP_G ASB_ESP_4_G_VehicleSpeed = 0
+### iMX8 RVC倒车信号
+    BCM_4 RVM *** Str = 0
+    
 
 
 
@@ -474,3 +477,4 @@ Lightdetected
 背光：白天模式 ParkLightSts：1  LightDetected：1
 背光：白天模式 ParkLightSts：0  LightDetected：0
 背光：夜晚模式 ParkLightSts：1  LightDetected：0
+
