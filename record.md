@@ -257,7 +257,7 @@ adb shell am startservice -n com.autoai.carpowerservice/com.autoai.carpowerservi
 
 signingConfigs {
         release {
-            storeFile file('/home/zhaosibo/extend/workspace/GS11_CKD/vendor/bon-auto/packages/common/KeyStore/imx8.keystore')
+            storeFile file('/home/lorizhao/extend/GS11_M01_8015/vendor/projects/KeyStore/gs11.keystore')
             storePassword 'x-auto'
             keyAlias = 'cowin-platform'
             keyPassword 'cowin'
@@ -357,9 +357,9 @@ sudo apt-get install android-sdk-platform-tools-common
 
 lsusb
 得到
-Bus 001 Device 035: ID 2be1:0000 ATC AC8015
+Bus 001 Device 035: ID 18d1:4ee7 ATC AC8015
 得到
-SUBSYSTEM=="usb", ATTR{idVendor}=="0000", ATTR{idProduct}=="0000", MODE="0666", GROUP="plugdev"
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", ATTR{idProduct}=="4ee7", MODE="0666", GROUP="plugdev"
 执行
 $ sudo gedit /etc/udev/rules.d/51-android.rules
 
@@ -392,6 +392,10 @@ rpc-test getInfoSync 24 1 0
 ## 8015 adb
 su
 echo 0 > /proc/sys/kernel/printk
+
+settings get global config_dvr
+settings get global config_carlife
+settings get global config_carplay
 
 su
 setprop sys.usb.config nocarplay
@@ -430,7 +434,7 @@ logcat |grep avc &
 
 
 
-### 22.04 gerrit 问题
+## 22.04 gerrit 问题
 
 1. code  /etc/ssh/sshd_config 
 2. 结尾增加 
@@ -446,7 +450,7 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 6. 将~/.ssh/id_ed25519.pub的文本添加到gerrit或git用户配置的SSH keys中
 
 
-### 22.04 需要额外安装编译工具
+## 22.04 需要额外安装编译工具
 
 ./allmake.sh -p gs11_cbu allota
 
@@ -454,7 +458,7 @@ libtinfo5
 python3
 apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools qtcreator
 
-### ffmpeg使用
+## ffmpeg使用
 
 ffmpeg --version  查看ffmpeg环境
 
@@ -465,7 +469,7 @@ ffplay 文件路径  查看文件具体的编码格式
 MediaFocusControl
 
 
-### 亮度调节
+## 亮度调节
 
 cGrpId_RpcIviCan1_0x392_BCM_4
 Parklightsts
@@ -477,4 +481,25 @@ Lightdetected
 背光：白天模式 ParkLightSts：1  LightDetected：1
 背光：白天模式 ParkLightSts：0  LightDetected：0
 背光：夜晚模式 ParkLightSts：1  LightDetected：0
+
+
+## VsCode FilterLine 过滤
+
+^(?=.*(?:mediaScan|##Music###|Fx11_UsbIcon|mediascan|MediaContentProvider)).*$
+
+Fx11_UsbIcon 
+
+#####Music###
+^(?=.*(?:Fx11_UsbIcon|##Music###|)).*$
+
+
+### imx8 gs11和m01 机器的区别
+
+gs11机器的屏线插口在中间
+m01机器的屏线插口在边缘
+
+
+
+
+
 
