@@ -393,10 +393,6 @@ rpc-test getInfoSync 24 1 0
 su
 echo 0 > /proc/sys/kernel/printk
 
-settings get global config_dvr
-settings get global config_carlife
-settings get global config_carplay
-
 su
 setprop sys.usb.config nocarplay
 sleep 2
@@ -491,15 +487,40 @@ Fx11_UsbIcon
 
 #####Music###
 ^(?=.*(?:Fx11_UsbIcon|##Music###|)).*$
-
+logcat |grep -E "Fx11_UsbIcon|Music"
 
 ### imx8 gs11和m01 机器的区别
 
 gs11机器的屏线插口在中间
 m01机器的屏线插口在边缘
 
+### 机器型号对应
+GS11 CKD        对应波斯语
+GS11 CUB        对应西班牙 阿拉伯语
+GS11 KD 俄罗斯   对应俄语
+所有的英语都对应 imx8的老机器 GS11-KD
+
+M01 CUB        对应西班牙
+M01 CUB2       对应意大利（没有单独文言）
+M01 KD 俄罗斯   俄罗斯
+M01 KD 中亚     波斯
+
+/home/lorizhao/extend/workspace/GS11_CKD/vendor/bon-auto/packages/gs11/Instruction/app/src/main/res/values-en-rUS/strings.xml
+
+/home/lorizhao/extend/workspace/8015base/gs11_8015/vendor/projects/packages/Instruction/app/src/main/res/values-en-rUS/strings.xml
 
 
+/home/lorizhao/extend/workspace/8015base/gs11_8015/vendor/projects/packages/Image/app/src/main/res/values/strings.xml
+
+/home/lorizhao/extend/workspace/GS11_CKD/vendor/bon-auto/packages/gs11/Image/app/src/main/res/values/strings.xml
 
 
+/home/lorizhao/extend/workspace/GS11_CKD/vendor/bon-auto/packages/gs11/Video/app/src/main/res/values-en-rUS/strings.xml
+/home/lorizhao/extend/workspace/8015base/gs11_8015/vendor/projects/packages/Video/app/src/main/res/values-en-rUS/strings.xml
 
+
+[ 50% 1/2] glob device/autochips/gs11_ckd/overlay/**/*
+
+/home/lorizhao/extend/workspace/GS11_CKD/vendor/bon-auto/packages/gs11/Video/app/src/main/res/values-en-rUS/strings.xml
+
+/home/lorizhao/extend/workspace/8015base/gs11_8015/vendor/projects/packages/Video/app/src/main/res/values-en-rUS/strings.xml
